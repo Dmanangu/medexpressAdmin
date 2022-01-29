@@ -17,23 +17,31 @@ import { useRouter } from "next/router";
 export async function getServerSideProps() {
   const postsQuery = firestore.collectionGroup("orders");
   const postsQuery2 = firestore.collectionGroup("shippingAddress");
+  const postsQuery3 = firestore.collectionGroup("users");
+
   // .where('published', '==', true)
   // .orderBy('createdAt', 'desc')
   // .limit(LIMIT);
 
   const posts = (await postsQuery.get()).docs.map(postToJSON);
   const posts2 = (await postsQuery2.get()).docs.map(postToJSON);
+  const posts3 = (await postsQuery3.get()).docs.map(postToJSON);
   // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
   // console.log(posts);
   // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
   return {
-    props: { posts, posts2 }, // will be passed to the page component as props
+    props: { posts, posts2, posts3 }, // will be passed to the page component as props
   };
 }
 
 export default function Orders(props) {
   const [posts, setPosts] = useState(props.posts);
   const [posts2, setPosts2] = useState(props.posts2);
+  const [posts3, setPosts3] = useState(props.posts3);
+
+  const userCount = posts.filter((users) => {
+    return users;
+  });
 
   const recentOrders = posts.filter((orders) => {
     return orders;
@@ -83,7 +91,7 @@ export default function Orders(props) {
                 <Typography variant="h5">{recentOrders.length}</Typography>
               </TableCell>
               <TableCell align="center">
-                <Typography variant="h5">{}</Typography>
+                <Typography variant="h5">{userCount.length}</Typography>
               </TableCell>
               <TableCell align="right">
                 <Typography variant="h5">₱{}</Typography>
