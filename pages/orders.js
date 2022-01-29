@@ -1,16 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import Layout from "component/Layout";
 import {
+  Button,
   Paper,
   Table,
   TableCell,
   TableRow,
   Typography,
 } from "@material-ui/core";
+import "firebase/compat/firestore";
+import { postToJSON, firestore } from "../lib/firebase";
+import { useRouter } from "next/router";
 
 //
 
-export default function Orders() {
+export async function getServerSideProps() {
+  const postsQuery = firestore.collectionGroup("orders");
+  const postsQuery2 = firestore.collectionGroup("shippingAddress");
+  // .where('published', '==', true)
+  // .orderBy('createdAt', 'desc')
+  // .limit(LIMIT);
+
+  const posts = (await postsQuery.get()).docs.map(postToJSON);
+  const posts2 = (await postsQuery2.get()).docs.map(postToJSON);
+  // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+  // console.log(posts);
+  // console.log("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+  return {
+    props: { posts, posts2 }, // will be passed to the page component as props
+  };
+}
+
+export default function Orders(props) {
+  const [posts, setPosts] = useState(props.posts);
+  const [posts2, setPosts2] = useState(props.posts2);
+
+  const recentOrders = posts.filter((orders) => {
+    return orders;
+  });
+
+  const shippingClient = posts2.filter((shippingAddress) => {
+    return shippingAddress;
+  });
+  const router = useRouter();
+  const deleteHandler = (e) => {
+    try {
+      firestore
+        .collection("shippingAddress")
+        .doc(e)
+        .delete()
+        .then(alert("This user address is now deleted"));
+      router.push("/orders");
+    } catch (error) {
+      console.log(error);
+      alert(error);
+    }
+  };
   return (
     <Layout>
       <div style={{ marginTop: 60 }}>
@@ -34,9 +79,15 @@ export default function Orders() {
               </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
-              <TableCell></TableCell>
+              <TableCell>
+                <Typography variant="h5">{recentOrders.length}</Typography>
+              </TableCell>
+              <TableCell align="center">
+                <Typography variant="h5">{}</Typography>
+              </TableCell>
+              <TableCell align="right">
+                <Typography variant="h5">₱{}</Typography>
+              </TableCell>
             </TableRow>
           </Table>
         </Paper>
@@ -62,7 +113,33 @@ export default function Orders() {
                 <Typography>Action</Typography>
               </TableCell>
             </TableRow>
-            <TableRow></TableRow>
+            {shippingClient.map((ships) => (
+              <TableRow key={ships.id}>
+                <TableCell>
+                  <Typography>{ships.fullName}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography>{ships.phone}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography>{ships.email}</Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography>
+                    {ships.address},{ships.barangay}
+                  </Typography>
+                </TableCell>
+                <TableCell align="right">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => deleteHandler(ships.id)}
+                  >
+                    Delete
+                  </Button>
+                </TableCell>
+              </TableRow>
+            ))}
           </Table>
         </Paper>
       </div>
