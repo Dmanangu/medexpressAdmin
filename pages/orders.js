@@ -50,6 +50,11 @@ export default function Orders(props) {
   const shippingClient = posts2.filter((shippingAddress) => {
     return shippingAddress;
   });
+
+  var totalPrice = 0;
+
+  recentOrders.map((total) => (totalPrice += total.totalPrice));
+
   const router = useRouter();
   const deleteHandler = (e) => {
     try {
@@ -94,7 +99,7 @@ export default function Orders(props) {
                 <Typography variant="h5">{userCount.length}</Typography>
               </TableCell>
               <TableCell align="right">
-                <Typography variant="h5">₱{}</Typography>
+                <Typography variant="h5">₱{totalPrice}</Typography>
               </TableCell>
             </TableRow>
           </Table>
