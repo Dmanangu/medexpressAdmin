@@ -1,0 +1,15 @@
+.workerContainer{
+    margin-top: 30px;
+    padding: 20px;
+    height: 750px;
+    border: 300px;
+    background-color: rgba(0, 0, 0, 0.09);
+    border-radius: 30px;
+}
+
+.search{
+    padding: 10px;
+    width: 40vw;
+    font-size: 20px;
+    margin-top: 30px;
+}

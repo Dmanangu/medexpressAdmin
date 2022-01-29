@@ -1,0 +1,23 @@
+.paymentContainer{
+    margin-top: 30px;
+    padding: 20px;
+    height: 750px;
+    border: 300px;
+    background-color: rgba(0, 0, 0, 0.09);
+    border-radius: 30px;
+}
+.paymentButtonContainer{
+    height: 700px;
+    width: 200px;
+    border: 300px;
+    background-color: rgba(155,160,178,255);
+    border-radius: 30px;
+}
+.buttons{
+    margin-top: 80px;
+    font-size: 15px;
+    padding: 45px;
+    border-radius: 30px;
+    background-color: rgb(192,188,196);
+    font-weight: bold;
+}

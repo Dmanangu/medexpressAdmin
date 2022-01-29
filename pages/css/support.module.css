@@ -1,0 +1,8 @@
+.supportContainer{
+    margin-top: 30px;
+    padding: 20px;
+    height: 750px;
+    border: 300px;
+    background-color: rgba(0, 0, 0, 0.09);
+    border-radius: 30px;
+}
