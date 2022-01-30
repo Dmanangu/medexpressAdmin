@@ -39,16 +39,16 @@ export default function Orders(props) {
   const [posts2, setPosts2] = useState(props.posts2);
   const [posts3, setPosts3] = useState(props.posts3);
 
-  const userCount = posts.filter((users) => {
+  const userCount = posts3.filter((users) => {
     return users;
   });
 
   const recentOrders = posts.filter((orders) => {
-    return orders;
+    return orders.status.toLowerCase().includes("paid");
   });
 
   const shippingClient = posts2.filter((shippingAddress) => {
-    return shippingAddress;
+    return shippingAddress.status.toLowerCase().includes("out for delivery");
   });
 
   var totalPrice = 0;
@@ -122,6 +122,9 @@ export default function Orders(props) {
               <TableCell>
                 <Typography>Complete Address</Typography>
               </TableCell>
+              <TableCell>
+                <Typography>Shipment status</Typography>
+              </TableCell>
               <TableCell align="right">
                 <Typography>Action</Typography>
               </TableCell>
@@ -141,6 +144,9 @@ export default function Orders(props) {
                   <Typography>
                     {ships.address},{ships.barangay}
                   </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography>{ships.status}</Typography>
                 </TableCell>
                 <TableCell align="right">
                   <Button

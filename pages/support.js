@@ -12,7 +12,6 @@ import React from "react";
 import Layout from "../component/Layout";
 import NextLink from "next/link";
 import useStyles from "../utils/styles";
-import supportStyles from "./css/support.module.css";
 
 import { useState, useEffect } from "react";
 

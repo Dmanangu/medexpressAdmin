@@ -34,6 +34,15 @@ function Nav() {
           <NavLink href="/orders" className={classes.brand}>
             ORDERS
           </NavLink>
+          <NavLink href="/shipment" className={classes.brand}>
+            SHIPMENT
+          </NavLink>
+          <NavLink href="/payment" className={classes.brand}>
+            PAYMENT
+          </NavLink>
+          <NavLink href="/orderhistory" className={classes.brand}>
+            ORDER HISTORY
+          </NavLink>
           <NavLink href="/support" className={classes.brand}>
             SETTINGS
           </NavLink>
