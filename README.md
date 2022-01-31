@@ -4,6 +4,11 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 First, run the development server:
 
+1. download the zip file.
+2. extract to a new folder.
+3. npm install -> to install the dependencies, node modules and .Next files
+4. then npm run dev in the terminal to run the code.
+
 ```bash
 npm run dev
 # or
